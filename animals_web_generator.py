@@ -1,3 +1,4 @@
+from html import escape
 from getpass import getpass
 
 import requests
@@ -66,8 +67,17 @@ def main():
         template = template_file.read()
 
     output = ""
-    for animal_obj in animals_data:
-        output += serialize_animal(animal_obj)
+
+    if animals_data:
+        for animal_obj in animals_data:
+            output += serialize_animal(animal_obj)
+    else:
+        safe_name = escape(animal_name)
+        output = (
+            '<li class="cards__item">'
+            f'<h2>The animal "{safe_name}" doesn\'t exist.</h2>'
+            '</li>'
+        )
 
     html_content = template.replace("__REPLACE_ANIMALS_INFO__", output)
 

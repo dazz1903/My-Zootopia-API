@@ -54,9 +54,10 @@ def serialize_animal(animal_obj):
 def main():
     """Generates the animal HTML page using API data."""
     api_key = getpass("Enter your API key: ")
+    animal_name = input("Enter a name of an animal: ").strip()
 
     try:
-        animals_data = fetch_animals("Fox", api_key)
+        animals_data = fetch_animals(animal_name, api_key)
     except requests.RequestException as error:
         print(f"Could not fetch animals: {error}")
         return
